@@ -1,0 +1,19 @@
+_format_version: "3.0"
+services:
+  - name: orders
+    url: http://orders:80
+    routes:
+      - name: orders-route
+        paths: [/orders]
+    plugins:
+      - name: jwt
+        config:
+          key_claim_name: iss
+          claims_to_verify: [exp]
+consumers:
+  - username: keycloak-orders-realm
+    jwt_secrets:
+      - key: http://localhost:8080/realms/orders   # matches the token "iss" claim
+        algorithm: RS256
+        rsa_public_key: |
+__PUBKEY__

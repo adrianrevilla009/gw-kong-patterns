@@ -1,0 +1,11 @@
+_format_version: "3.0"
+services:
+  - name: orders
+    url: http://orders:80
+    routes:
+      - name: orders-route
+        paths: [/orders]
+    plugins:
+      - name: order-stamp
+        config:
+          message: stamped-by-lua

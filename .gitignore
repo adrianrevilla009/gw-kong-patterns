@@ -1,0 +1,16 @@
+.env
+*.pem
+*.key
+*.tfstate*
+.terraform/
+target/
+build/
+.gradle/
+node_modules/
+__pycache__/
+.idea/
+.vscode/
+*.log
+.DS_Store
+kong-declarative-config-deck/kong.yml
+kong-jwt-oidc-auth/kong.generated.yml

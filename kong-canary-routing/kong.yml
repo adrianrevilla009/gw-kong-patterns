@@ -1,0 +1,22 @@
+_format_version: "3.0"
+upstreams:
+  - name: orders-weighted
+    targets:
+      - target: orders-v1:80
+        weight: 90
+      - target: orders-v2:80
+        weight: 10
+services:
+  - name: orders
+    host: orders-weighted
+    routes:
+      - name: orders-default
+        paths: [/orders]
+  - name: orders-v2
+    host: orders-v2
+    port: 80
+    routes:
+      - name: orders-canary-header   # opt-in: X-Canary: true always hits v2
+        paths: [/orders]
+        headers:
+          x-canary: ["true"]

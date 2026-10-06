@@ -1,0 +1,21 @@
+_format_version: "3.0"
+services:
+  - name: orders
+    url: http://orders:80
+    routes:
+      - name: orders-route
+        paths: [/v1/orders]
+        strip_path: true
+    plugins:
+      - name: request-transformer
+        config:
+          add:
+            headers: ["X-Gateway:kong", "X-Tenant:acme"]
+          remove:
+            headers: ["X-Secret"]
+          replace:
+            uri: /api/orders
+      - name: response-transformer
+        config:
+          add:
+            headers: ["X-Served-By:kong"]

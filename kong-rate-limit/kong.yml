@@ -1,0 +1,14 @@
+_format_version: "3.0"
+services:
+  - name: orders
+    url: http://orders:80
+    routes:
+      - name: orders-route
+        paths: [/orders]
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 3
+          policy: local
+          limit_by: ip
+          hide_client_headers: false
